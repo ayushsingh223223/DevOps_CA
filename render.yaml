@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: node-rest-api-cicd
+    runtime: docker
+    plan: free
+    autoDeploy: false
+    healthCheckPath: /health
