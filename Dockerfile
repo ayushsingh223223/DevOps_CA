@@ -1,16 +1,16 @@
-FROM public.ecr.aws/docker/library/node:22-alpine AS deps
+FROM mcr.microsoft.com/devcontainers/typescript-node:1-22 AS deps
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
-FROM public.ecr.aws/docker/library/node:22-alpine AS builder
+FROM mcr.microsoft.com/devcontainers/typescript-node:1-22 AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY tsconfig.json ./
 COPY src ./src
 RUN npm run build
 
-FROM public.ecr.aws/docker/library/node:22-alpine AS runner
+FROM mcr.microsoft.com/devcontainers/typescript-node:1-22 AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 COPY package*.json ./
